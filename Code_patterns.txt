@@ -1,24 +1,24 @@
 Code Refactoring && Design Patterns :
     Pour la classe Belote :
-          On sépare la logique métier (connexion à la base de données) de la logique de présentation (interface
+          - On sépare la logique métier (connexion à la base de données) de la logique de présentation (interface
         graphique). Cela facilitera le débogage.
-          On attrape une exception générale (Exception), ce qui rend difficile la gestion spécifique des erreurs. Il
+          - On attrape une exception générale (Exception), ce qui rend difficile la gestion spécifique des erreurs. Il
         vaut mieux spécifier l'exception pour gérer précisément chaque cas.
-           Le try n'a pas de catch pour fermer correctement la connexion à la base de données, laissant la connexion
+           - Le try n'a pas de catch pour fermer correctement la connexion à la base de données, laissant la connexion
         ouverte.
     Pour la classe Match :
-           Les champs de la classe Equipe sont publics, ce qui viole le principe d'encapsulation. Cela permet à
+           - Les champs de la classe Equipe sont publics, ce qui viole le principe d'encapsulation. Cela permet à
         d'autres classes de modifier directement ces valeurs sans aucune restriction ni validation.
-            La méthode toString ne prend pas en compte le cas où les équipes pourraient être identiques.
+            - La méthode toString ne prend pas en compte le cas où les équipes pourraient être identiques.
     Pour la classe Equipe :
-            Les champs de la classe Equipe sont publics, ce qui viole le principe d'encapsulation. Cela permet à
+            - Les champs de la classe Equipe sont publics, ce qui viole le principe d'encapsulation. Cela permet à
         d'autres classes de modifier directement ces valeurs sans aucune restriction ni validation.
-            Manque des setters et des getters.
+            - Manque des setters et des getters.
     Pour la classe Fenêtre :
-            Toutes les responsabilités (base de données, logique métier, interface utilisateur) sont mélangées dans une
+            - Toutes les responsabilités (base de données, logique métier, interface utilisateur) sont mélangées dans une
         seule classe, ce qui rend le code difficile à maintenir.
-            La connexion à la base de données est répétée dans plusieurs méthodes.
+            - La connexion à la base de données est répétée dans plusieurs méthodes.
     Pour la classe tournoi :
-            Plusieurs méthodes font des requêtes similaires.
-            Le code peut être difficile à lire à cause des requêtes SQL longues.
-            Utilisation de == pour comparer des chaînes, il vaut mieux d'utiliser .equals.
+            - Plusieurs méthodes font des requêtes similaires.
+            - Le code peut être difficile à lire à cause des requêtes SQL longues.
+            - Utilisation de == pour comparer des chaînes, il vaut mieux d'utiliser .equals.
