@@ -1,4 +1,4 @@
-Code Refactoring && Design Pattern :
+Code Refactoring && Design Patterns :
     Pour la classe Belote :
           On sépare la logique métier (connexion à la base de données) de la logique de présentation (interface
         graphique). Cela facilitera le débogage.
