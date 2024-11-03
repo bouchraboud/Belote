@@ -24,6 +24,12 @@ public class TournoiDAOImpl implements TournoiDAO {
             System.out.println("Error adding tournoi: " + e.getMessage());
         }
     }
+	
+	
+	public void createAndAddTournoi(String nom, int statut, int id) {
+        Tournoi tournoi = TournoiFactory.createTournoi(nom, statut, id); // Utilisation de la factory
+        addTournoi(tournoi); // Ajout du tournoi à la base de données
+    }
 
     @Override
     public Tournoi getTournoiById(int id) {

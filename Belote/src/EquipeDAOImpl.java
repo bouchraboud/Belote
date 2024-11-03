@@ -15,7 +15,7 @@ public class EquipeDAOImpl implements EquipeDAO {
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, equipe.getNumEquipe());
             pstmt.setString(2, equipe.getNomJ1());
-            pstmt.setString(3, equipe.getNomJ1());
+            pstmt.setString(3, equipe.getNomJ2());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error adding equipe: " + e.getMessage());
@@ -61,7 +61,7 @@ public class EquipeDAOImpl implements EquipeDAO {
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, equipe.getNumEquipe());
             pstmt.setString(2, equipe.getNomJ1());
-            pstmt.setString(3, equipe.getNomJ1());
+            pstmt.setString(3, equipe.getNomJ2());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating equipe: " + e.getMessage());

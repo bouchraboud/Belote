@@ -12,9 +12,10 @@ public class Tournoi {
 	int    id_tournoi;
 	private Vector<Equipe> dataeq = null;
 	private Vector<MatchM> datam  = null;
-	private Vector<Integer>ideqs  = null; 
-	Statement st;
+	private Vector<Integer>ideqs  = null; // Identifiants des équipes
+	Statement st; // Objet Statement pour exécuter des requêtes SQL
 	
+
 	public Tournoi(String nt, int statut, int id_tournoi) {
         this.nt = nt;
         this.statut = statut;
@@ -28,16 +29,15 @@ public class Tournoi {
 	
 	// Constructeur qui récupère les informations d'un tournoi depuis la base de données	
 	public Tournoi(String nt, Statement s){
-		st = s;
+		st = s; // Assigner l'objet Statement
 		this.nt = nt;
 
 		try {
 			ResultSet rs = s.executeQuery("SELECT * FROM tournois WHERE nom_tournoi = '" + Tournoi.mysql_real_escape_string(nt) + "';");
 			if(!rs.next()){
-				return ;
+				return ; // Si aucun tournoi trouvé, sortir
 			}
 			this.statut = rs.getInt("statut");
-			
 			this.id_tournoi = rs.getInt("id_tournoi");
 			rs.close();
 
@@ -69,8 +69,8 @@ public class Tournoi {
     }
 
 	public void majEquipes(){
-		dataeq = new Vector<Equipe>();
-		ideqs = new Vector<Integer>();
+		dataeq = new Vector<Equipe>(); // Initialiser la liste des équipes
+		ideqs = new Vector<Integer>(); // Initialiser la liste des identifiants des équipes
 		try {
 			ResultSet rs = st.executeQuery("SELECT * FROM equipes WHERE id_tournoi = " + id_tournoi + " ORDER BY num_equipe;");
 			while(rs.next()){
@@ -84,11 +84,11 @@ public class Tournoi {
 		}
 	}
 	public void majMatch(){
-		datam = new Vector<MatchM>();
+		datam = new Vector<MatchM>(); // Initialiser la liste des matchs
 		try {
 			ResultSet rs= st.executeQuery("SELECT * FROM matchs WHERE id_tournoi="+ id_tournoi + ";");
-			while(rs.next()) datam.add(new MatchM(rs.getInt("id_match"),rs.getInt("equipe1"),rs.getInt("equipe2"), rs.getInt("score1"),rs.getInt("score2"),rs.getInt("num_tour"),rs.getString("termine") == "oui"));
-			//public MatchM(int _idmatch,int _e1,int _e2,int _score1, int _score2, int _num_tour, boolean _termine)
+			while(rs.next()) datam.add(new MatchM(rs.getInt("id_match"),rs.getInt("equipe1"),rs.getInt("equipe2"), rs.getInt("score1"),rs.getInt("score2"),rs.getInt("num_tour"),rs.getString("termine").equals("oui")));
+			
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -96,17 +96,17 @@ public class Tournoi {
 		}
 	}
 	public MatchM getMatch(int index){
-		if(datam == null) majMatch();
-		return datam.get(index);
+		if(datam == null) majMatch(); // Met à jour la liste des matchs si elle est vide
+		return datam.get(index); // Retourne le match à l'index spécifié
 	}
 	public int getNbMatchs(){
 		if(datam == null) majMatch();
-		return datam.size();
+		return datam.size(); // Retourne le nombre de matchs
 	}
 	public Equipe getEquipe(int index){
 		if(dataeq == null) 
 			majEquipes();
-		return dataeq.get(index);
+		return dataeq.get(index); // Retourne l'équipe à l'index spécifié
 		
 	}
 	public int getNbEquipes(){
@@ -128,7 +128,7 @@ public class Tournoi {
 		try {
 			ResultSet rs = st.executeQuery("SELECT MAX (num_tour)  FROM matchs WHERE id_tournoi="+id_tournoi+"; ");
 			rs.next();
-			return rs.getInt(1);
+			return rs.getInt(1); // Retourne le nombre de tours
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
