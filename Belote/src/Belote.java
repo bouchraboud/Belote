@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Belote {
     private static Scanner scanner;
 
+    // Classe interne pour la gestion d'un match entre deux équipes
     static class Match {
         public int equipe1, equipe2;
 
@@ -26,42 +26,42 @@ public class Belote {
     }
 
     public static void main(String[] args) {
+        // Dossier de stockage des données
         String dos = System.getenv("APPDATA") + "\\jBelote";
         TournoiDAOImpl tournoiDAO = null;
         EquipeDAOImpl equipeDAO = null;
 
         try {
             System.out.println("Chargement du pilote JDBC...");
-            Class.forName("org.hsqldb.jdbcDriver").newInstance();
+            Class.forName("org.hsqldb.jdbcDriver").newInstance();  // Chargement du pilote HSQLDB
             System.out.println("Pilote JDBC chargé avec succès.");
 
             // Assurer que le dossier existe
             File storageDir = new File(dos);
             if (!storageDir.isDirectory()) {
-                storageDir.mkdir();
+                storageDir.mkdir();  // Créer le dossier si nécessaire
             }
 
-            // Utilisation de try-with-resources pour gérer la connexion
+            // Connexion à la base de données HSQLDB
             try (Connection connection = DriverManager.getConnection("jdbc:hsqldb:file:" + dos + "\\belote", "sa", "")) {
                 System.out.println("Connexion à la base de données réussie.");
-                
-                // Initialisation des DAO
+
+                // Initialisation des DAO (Data Access Objects)
                 tournoiDAO = new TournoiDAOImpl(connection);
                 equipeDAO = new EquipeDAOImpl(connection);
-                
-                // Importation SQL
+
+                // Importation du fichier SQL pour créer la structure de la base
                 tournoiDAO.importSQL(connection, new File("create.sql"));
 
-                // Initialisation de la fenêtre
+                // Initialisation de la fenêtre graphique
                 Fenetre fenetre = new Fenetre(connection.createStatement());
                 fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                fenetre.setVisible(true);
+                fenetre.setVisible(true);  // Affichage de la fenêtre
             }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Impossible de se connecter à la base de données. Vérifiez qu'une autre instance du logiciel n'est pas déjà ouverte.");
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Fichier SQL non trouvé : " + e.getMessage());
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Pilote JDBC non trouvé : " + e.getMessage());
         } catch (Exception e) {
@@ -70,6 +70,3 @@ public class Belote {
         }
     }
 }
-
-
-

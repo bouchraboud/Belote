@@ -5,6 +5,7 @@ import java.util.List;
 public class EquipeDAOImpl implements EquipeDAO {
     private final Connection con;
 
+    // Constructeur pour initialiser la connexion
     public EquipeDAOImpl(Connection connection) {
         this.con = connection;
     }
@@ -18,7 +19,8 @@ public class EquipeDAOImpl implements EquipeDAO {
             pstmt.setString(3, equipe.getNomJ2());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error adding equipe: " + e.getMessage());
+            // Propagation de l'exception avec un message détaillé
+            throw new RuntimeException("Erreur lors de l'ajout de l'équipe : " + e.getMessage(), e);
         }
     }
 
@@ -28,12 +30,14 @@ public class EquipeDAOImpl implements EquipeDAO {
         String sql = "SELECT * FROM equipes WHERE id_equipe = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                equipe = new Equipe(rs.getInt("id_equipe"), rs.getInt("num_equipe"), rs.getString("nom_j1"), rs.getString("nom_j2"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    equipe = new Equipe(rs.getInt("id_equipe"), rs.getInt("num_equipe"), rs.getString("nom_j1"), rs.getString("nom_j2"));
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving equipe: " + e.getMessage());
+            // Propagation de l'exception
+            throw new RuntimeException("Erreur lors de la récupération de l'équipe : " + e.getMessage(), e);
         }
         return equipe;
     }
@@ -44,13 +48,15 @@ public class EquipeDAOImpl implements EquipeDAO {
         String sql = "SELECT * FROM equipes WHERE id_tournoi = ? ORDER BY num_equipe";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, tournoiId);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Equipe equipe = new Equipe(rs.getInt("id_equipe"), rs.getInt("num_equipe"), rs.getString("nom_j1"), rs.getString("nom_j2"));
-                equipes.add(equipe);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Equipe equipe = new Equipe(rs.getInt("id_equipe"), rs.getInt("num_equipe"), rs.getString("nom_j1"), rs.getString("nom_j2"));
+                    equipes.add(equipe);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving all equipes: " + e.getMessage());
+            // Propagation de l'exception
+            throw new RuntimeException("Erreur lors de la récupération des équipes : " + e.getMessage(), e);
         }
         return equipes;
     }
@@ -62,9 +68,11 @@ public class EquipeDAOImpl implements EquipeDAO {
             pstmt.setInt(1, equipe.getNumEquipe());
             pstmt.setString(2, equipe.getNomJ1());
             pstmt.setString(3, equipe.getNomJ2());
+            pstmt.setInt(4, equipe.getIdEquipe());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error updating equipe: " + e.getMessage());
+            // Propagation de l'exception
+            throw new RuntimeException("Erreur lors de la mise à jour de l'équipe : " + e.getMessage(), e);
         }
     }
 
@@ -75,7 +83,9 @@ public class EquipeDAOImpl implements EquipeDAO {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error deleting equipe: " + e.getMessage());
+            // Propagation de l'exception
+            throw new RuntimeException("Erreur lors de la suppression de l'équipe : " + e.getMessage(), e);
         }
     }
 }
+

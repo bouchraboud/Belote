@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -7,42 +6,47 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TournoiDAOImpl implements TournoiDAO {
+
     private final Connection con;
 
+    // Constructeur pour initialiser la connexion à la base de données
     public TournoiDAOImpl(Connection connection) {
         this.con = connection;
     }
 
-	@Override
+    @Override
     public void addTournoi(Tournoi tournoi) {
-        String sql = "INSERT INTO tournois (nom_tournoi, statut) VALUES (?, ?)";
+        String sql = "INSERT INTO tournois (nom, statut, id) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, tournoi.getNom());
             pstmt.setInt(2, tournoi.getStatut());
+            pstmt.setInt(3, tournoi.getIdTournoi());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error adding tournoi: " + e.getMessage());
+            System.out.println("Erreur lors de l'ajout du tournoi : " + e.getMessage());
         }
     }
-	
-	
-	public void createAndAddTournoi(String nom, int statut, int id) {
-        Tournoi tournoi = TournoiFactory.createTournoi(nom, statut, id); // Utilisation de la factory
-        addTournoi(tournoi); // Ajout du tournoi à la base de données
+
+    @Override
+    public void createAndAddTournoi(String nom, int statut, int id) {
+        // Cette méthode pourrait être une version simplifiée de addTournoi.
+        Tournoi tournoi = new Tournoi(nom, statut, id);
+        addTournoi(tournoi); // Appel de addTournoi pour ajouter le tournoi à la base de données.
     }
 
     @Override
     public Tournoi getTournoiById(int id) {
         Tournoi tournoi = null;
-        String sql = "SELECT * FROM tournois WHERE id_tournoi = ?";
+        String sql = "SELECT * FROM tournois WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                tournoi = new Tournoi(rs.getString("nom_tournoi"), rs.getInt("statut"), rs.getInt("id_tournoi"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    tournoi = new Tournoi(rs.getString("nom"), rs.getInt("statut"), rs.getInt("id"));
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving tournoi: " + e.getMessage());
+            System.out.println("Erreur lors de la récupération du tournoi : " + e.getMessage());
         }
         return tournoi;
     }
@@ -51,62 +55,63 @@ public class TournoiDAOImpl implements TournoiDAO {
     public List<Tournoi> getAllTournois() {
         List<Tournoi> tournois = new ArrayList<>();
         String sql = "SELECT * FROM tournois";
-        try (PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                Tournoi tournoi = new Tournoi(rs.getString("nom_tournoi"), rs.getInt("statut"), rs.getInt("id_tournoi"));
-                tournois.add(tournoi);
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Tournoi tournoi = new Tournoi(rs.getString("nom"), rs.getInt("statut"), rs.getInt("id"));
+                    tournois.add(tournoi);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving all tournois: " + e.getMessage());
+            System.out.println("Erreur lors de la récupération des tournois : " + e.getMessage());
         }
         return tournois;
     }
 
     @Override
     public void updateTournoi(Tournoi tournoi) {
-        String sql = "UPDATE tournois SET statut = ? WHERE id_tournoi = ?";
+        String sql = "UPDATE tournois SET nom = ?, statut = ? WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, tournoi.getStatut());
-            pstmt.setInt(2, tournoi.getIdTournoi());
-            pstmt.executeUpdate();
+            pstmt.setString(1, tournoi.getNom());
+            pstmt.setInt(2, tournoi.getStatut());
+            pstmt.setInt(3, tournoi.getIdTournoi());
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune mise à jour effectuée pour le tournoi avec id: " + tournoi.getIdTournoi());
+            }
         } catch (SQLException e) {
-            System.out.println("Error updating tournoi: " + e.getMessage());
+            System.out.println("Erreur lors de la mise à jour du tournoi : " + e.getMessage());
         }
     }
 
     @Override
     public void deleteTournoi(int id) {
-        String sql = "DELETE FROM tournois WHERE id_tournoi = ?";
+        String sql = "DELETE FROM tournois WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucun tournoi trouvé avec l'id: " + id);
+            }
         } catch (SQLException e) {
-            System.out.println("Error deleting tournoi: " + e.getMessage());
+            System.out.println("Erreur lors de la suppression du tournoi : " + e.getMessage());
         }
     }
- // Method to import SQL commands from a file
-    public void importSQL(Connection conn, File in) throws SQLException, FileNotFoundException {
-        Scanner s = new Scanner(in);
-        s.useDelimiter("(;(\r)?\n)|(--\n)");
-        Statement st = null;
-        try {
-            st = conn.createStatement();
-            while (s.hasNext()) {
-                String line = s.next();
-                if (line.startsWith("/*!") && line.endsWith("*/")) {
-                    int i = line.indexOf(' ');
-                    line = line.substring(i + 1, line.length() - " */".length());
-                }
 
-                if (line.trim().length() > 0) {
-                    st.execute(line);
-                }
+    // Méthode d'importation du fichier SQL
+    public void importSQL(Connection connection, File sqlFile) throws SQLException, FileNotFoundException {
+        // Lecture du fichier SQL
+        StringBuilder sqlQuery = new StringBuilder();
+        try (Scanner scanner = new Scanner(sqlFile)) {
+            while (scanner.hasNextLine()) {
+                sqlQuery.append(scanner.nextLine()).append("\n");
             }
-        } finally {
-            if (st != null) st.close();
-            s.close(); // Close the scanner here
+        }
+
+        // Exécution de la requête SQL
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(sqlQuery.toString());
         }
     }
 }
-
 
