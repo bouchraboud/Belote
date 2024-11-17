@@ -1,3 +1,4 @@
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,7 +15,8 @@ public class Tournoi {
 	private Vector<MatchM> datam  = null;
 	private Vector<Integer>ideqs  = null; // Identifiants des équipes
 	Statement st; // Objet Statement pour exécuter des requêtes SQL
-	
+
+
 
 	public Tournoi(String nt, int statut, int id_tournoi) {
         this.nt = nt;
@@ -22,7 +24,9 @@ public class Tournoi {
         this.id_tournoi = id_tournoi;
         this.statuttnom = getStatutNom(statut);
     }
-	
+
+
+
 	public int getIdTournoi() {
 		return id_tournoi;
 	}
@@ -51,7 +55,7 @@ public class Tournoi {
 		}
 		this.statuttnom = getStatutNom(this.statut);
 	}
-	
+
 	// Méthode pour obtenir le nom du statut
     private String getStatutNom(int statut) {
         switch (statut) {
@@ -124,17 +128,35 @@ public class Tournoi {
 	public String getNom() {
 		return nt;
 	}
-	public int getNbTours(){
-		try {
-			ResultSet rs = st.executeQuery("SELECT MAX (num_tour)  FROM matchs WHERE id_tournoi="+id_tournoi+"; ");
-			rs.next();
-			return rs.getInt(1); // Retourne le nombre de tours
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			return -1;
+	public int getNbTours() {
+		int nbTours = 0;
+
+		// Ensure you have a valid connection
+		Connection connection = DatabaseConnection.getInstance().getConnection();
+
+		if (connection != null) {
+			try {
+				// Initialize the Statement object
+				st = connection.createStatement();
+
+				// Execute the query
+				String query = "SELECT COUNT(*) FROM tours"; // Example query
+				ResultSet resultSet = st.executeQuery(query);
+
+				if (resultSet.next()) {
+					nbTours = resultSet.getInt(1);  // Assuming you're fetching the count of rows
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();  // Handle SQL exceptions
+			}
+		} else {
+			System.out.println("Connection is null. Cannot execute query.");
 		}
+
+		return nbTours;
 	}
+
 	public void genererMatchs(){
 		int nbt = 1;
 

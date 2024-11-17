@@ -12,7 +12,7 @@ public class EquipeDAOImpl implements EquipeDAO {
 
     @Override
     public void addEquipe(Equipe equipe) {
-        String sql = "INSERT INTO equipes (num_equipe, nom_j1, nom_j2, id_tournoi) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO equipes (num_equipe, nom_j1, nom_j2, id_equipe) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, equipe.getNumEquipe());
             pstmt.setString(2, equipe.getNomJ1());

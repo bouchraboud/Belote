@@ -6,11 +6,11 @@ public class TournoiService {
     private TournoiDAO tournoiDAO;
 
     public TournoiService(Connection connection) {
-        this.tournoiDAO = new TournoiDAOImpl(connection);
+        this.tournoiDAO = new TournoiDAOImpl();
     }
 
     public void createNewTournoi(String nom, int statut, int id) {
-        tournoiDAO.createAndAddTournoi(nom, statut, id);
+        tournoiDAO.creerTournoi(nom, statut, id);
     }
 
     public Tournoi getTournoiById(int id) {

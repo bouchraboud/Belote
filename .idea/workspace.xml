@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e9ac7a31-b427-438a-9064-629c1a997edd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/hsqldb.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Belote/src/MatchDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Belote/src/MatchDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Belote/src/create.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Refacroting-yas-bo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Belote$Match.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Belote.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Equipe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/EquipeDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/EquipeDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/EquipeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Fenetre.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/MatchM.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Tournoi$Match.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/Tournoi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiAmical.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiFactoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiNormal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/bin/TournoiService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/Belote.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/Belote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/EquipeDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/EquipeDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/Fenetre.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/Fenetre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/Tournoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/Tournoi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/TournoiDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/TournoiDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/TournoiDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/TournoiDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Belote/src/TournoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Belote/src/TournoiService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2ou4zFOupDHGhENl8ADpKM2xpsK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Belote.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/dell/Downloads/hsqldb-2.7.4.jar",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Belote" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <classpathModifications>
+        <entry path="C:\Users\dell\Downloads\hsqldb-2.7.4.jar" />
+      </classpathModifications>
+      <option name="MAIN_CLASS_NAME" value="Belote" />
+      <module name="Refacroting-yas-bo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Belote" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9ac7a31-b427-438a-9064-629c1a997edd" name="Changes" comment="" />
+      <created>1731706389114</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731706389114</updated>
+    </task>
+    <servers />
+  </component>
+</project>
